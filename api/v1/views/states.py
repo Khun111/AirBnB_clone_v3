@@ -18,7 +18,7 @@ def state_list():
             json_body = request.get_json()
             if not json_body:
                 abort(400, 'Not a JSON')
-            if json_body['name'] is None:
+            if json_body.get('name') is None:
                 abort(400, 'Missing name')
             state = State(**json_body)
             new_inst = storage.new(state)
