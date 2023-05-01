@@ -14,8 +14,12 @@ class City(BaseModel, Base):
         __tablename__ = 'cities'
         state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
         name = Column(String(128), nullable=False)
+<<<<<<< HEAD
         places = relationship("Place", backref="cities",
                               cascade="all, delete-orphan")
+=======
+        places = relationship("Place", backref="cities", cascade="delete")
+>>>>>>> db876ddd9aa7af331cfe4ed5c3c18ff39b0da67f
     else:
         state_id = ""
         name = ""
