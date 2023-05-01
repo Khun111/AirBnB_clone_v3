@@ -41,7 +41,7 @@ def state_detail(state_id):
         storage.delete(state)
         storage.save()
         return jsonify({})
-    else:
+    if request.method == 'PUT':
         try:
             json_body = request.get_json()
             if not json_body:
