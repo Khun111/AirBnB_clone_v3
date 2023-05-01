@@ -23,7 +23,7 @@ def state_list():
             state = State(**json_body)
             new_inst = storage.new(state)
             storage.save()
-            return jsonify(state.to_dict()), 201
+            return make_response(jsonify(state.to_dict()), 201)
         except Exception as err:
             abort(404)
 
