@@ -12,7 +12,7 @@ from api.v1.views import app_views
 def city_list(state_id):
     '''Interested in list of cities of particular states'''
     state = storage.get(State, state_id)
-    if state is None:
+    if not state:
         abort(404)
     if request.method == 'GET':
         list_city = [city.to_dict() for city in state.cities]
@@ -38,7 +38,7 @@ def city_list(state_id):
 def city_detail(city_id):
     '''Interested in details of a specific state'''
     city = storage.get(City, city_id)
-    if city is None:
+    if not city:
         abort(404)
     if request.method == 'GET':
         return jsonify(city.to_dict())

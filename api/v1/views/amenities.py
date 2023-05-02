@@ -33,7 +33,7 @@ def amenity_list():
 def amenity_detail(amenity_id):
     '''Interested in details of a specific amenity'''
     amenity = storage.get(Amenity, amenity_id)
-    if amenity is None:
+    if not amenity:
         abort(404)
     if request.method == 'GET':
         return jsonify(amenity.to_dict())

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 '''State Rest API'''
-from flask import jsonify, abort, request, make_response
+from flask import jsonify, abort, request
 from models.state import State
 from models import storage
 from api.v1.views import app_views
@@ -23,7 +23,7 @@ def state_list():
             state = State(**json_body)
             new_inst = storage.new(state)
             storage.save()
-            return make_response(jsonify(state.to_dict()), 201)
+            return jsonify(state.to_dict()), 201
         except Exception as err:
             abort(404)
 
@@ -33,7 +33,7 @@ def state_list():
 def state_detail(state_id):
     '''Interested in details of a specific state'''
     state = storage.get(State, state_id)
-    if state is None:
+    if not state:
         abort(404)
     if request.method == 'GET':
         return jsonify(state.to_dict())
@@ -41,7 +41,7 @@ def state_detail(state_id):
         storage.delete(state)
         storage.save()
         return jsonify({})
-    if request.method == 'PUT':
+    else:
         try:
             json_body = request.get_json()
             if not json_body:

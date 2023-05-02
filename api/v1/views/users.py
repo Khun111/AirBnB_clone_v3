@@ -35,7 +35,7 @@ def user_list():
 def user_detail(user_id):
     '''Interested in details of a specific user'''
     user = storage.get(User, user_id)
-    if user is None:
+    if not user:
         abort(404)
     if request.method == 'GET':
         return jsonify(user.to_dict())
